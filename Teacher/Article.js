@@ -78,7 +78,8 @@ class Article {
      * @returns {String} Article's editorial
      */
     get editorial() {
-        return getSubstring(this.article, 'ed:', 'p.');
+        //TODO: fix this return cuz in some cases there is not 'v.' ... :(
+        return getSubstring(this.article, 'ed:', 'v.');
     }
 
     /**
