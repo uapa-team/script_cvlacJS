@@ -9,12 +9,8 @@ module.exports = class Utils {
      * @returns {String} Substring
      */
     static getSubstring(string, start, end) {
-
-        const startIndex = string.indexOf(start) + start.length;
+        string = string.slice(string.indexOf(start) + start.length);
         const endIndex = end === -1 ? undefined : string.indexOf(end);
-
-        return string.substring(startIndex, endIndex).trim();
+        return string.substring(0, endIndex).trim();
     }
-
-
 }
