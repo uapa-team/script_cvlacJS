@@ -70,7 +70,7 @@ class CapBook {
      * @returns {String} CapBook's editorial
      */
     get editorial() {
-        return getSubstring(this.capBook, 'ed:', -1).split(',')[0];
+        return getSubstring(this.capBook, 'ed:', ',');
     }
 
     /**
@@ -78,7 +78,7 @@ class CapBook {
      * @returns {String} CapBook's pages
      */
     get pages() {
-        return getSubstring(this.capBook, 'p.', -1).split(',')[0];
+        return getSubstring(this.capBook, 'p.', ',');
     }
 
 
@@ -90,7 +90,7 @@ const capBookExample = new CapBook({
 JUAN CARLOS VELEZ DIAZ, Tipo: Otro capítulo de libro publicado
 MARIA GABRIELA CALLE, Tipo: Otro capítulo de libro publicado
 GEOVANNI BERDUGO, "Testbed for evaluating Wireless Sensor Networks with non-line of sight links" 2012 International Symposium On Wireless Communication Systems (Iswcs) Proceedings . En: Francia  ISBN: 978-1-4673-0762-8  ed: IEEE Publications , v. , p.136 - 140  1 ,2012`
-}).editorial;
+}).info;
 
 console.log(capBookExample)
 

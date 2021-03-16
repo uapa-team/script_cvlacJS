@@ -23,6 +23,7 @@ class Article {
             magazine: this.magazine,
             editorial: this.editorial,
             pages: this.pages,
+            year: this.year,
         }
     }
 
@@ -42,7 +43,7 @@ class Article {
      * @returns {String} Article's title
      */
     get title() {
-        return this.article.split('"')[1].split(',')[0]
+        return this.article.split('"')[1].split(',')[0];
     }
 
     /**
@@ -83,7 +84,7 @@ class Article {
      * @returns {String} Article's pages
      */
     get pages() {
-        return getSubstring(this.article, 'p.', '-');
+        return getSubstring(this.article, 'p.', ',');
     }
 
     /**
@@ -91,7 +92,7 @@ class Article {
      * @returns {String} Article's year
      */
     get year() {
-        return getSubstring(this.article, 'ed:', 'p.');
+        return getSubstring(this.article, 'p.', -1).split(",")[1];
     }
 
 }
