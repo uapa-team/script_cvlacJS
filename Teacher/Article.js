@@ -16,12 +16,14 @@ class Article {
      */
     get info() {
         return {
-            authors: this.authors,
             title: this.title,
-            country: this.country,
-            issn: this.issn,
-            magazine: this.magazine,
+            year: this.year,
             editorial: this.editorial,
+            authors: this.authors,
+            country: this.country,
+            magazine: this.magazine,
+            issn: this.issn,
+            vol: this.vol,
             pages: this.pages,
         }
     }
@@ -32,8 +34,9 @@ class Article {
      */
     get authors() {
         return this.article.split('"')[0].split(',').filter((nameStr) => {
+            //NOTE: I'd like to use .map but sometimes the split array returns a void string as normal array element
             const name = nameStr.trim();
-            return name !== '';
+            return nameStr.trim();
         });
     }
 
@@ -83,7 +86,7 @@ class Article {
      * @returns {String} Article's pages
      */
     get pages() {
-        return getSubstring(this.article, 'p.', '-');
+        return getSubstring(this.article, 'p.', -1).split(",")[0];
     }
 
     /**
@@ -91,16 +94,32 @@ class Article {
      * @returns {String} Article's year
      */
     get year() {
-        return getSubstring(this.article, 'ed:', 'p.');
+        return getSubstring(this.article, this.pages, 'DOI:').replace(/,/g, '');
+    }
+
+    /**
+     * Get doi
+     * @returns {String} Article's doi
+     */
+    get doi() {
+        return getSubstring(this.article, 'DOI:', -1);
+    }
+
+    /**
+     * Get vol
+     * @returns {String} Article's vol
+     */
+    get vol() {
+        return getSubstring(this.article, 'v.', 'p.');
     }
 
 }
 
 
 const articleExample = new Article({
-    article: `FABIAN OMAR BETANCOURT QUIROGA, "Desarrollo de la Gestión Empresarial dentro de la Ingeniería de Petróleos" . En: Colombia 
-Revista de La Asociación Colombiana de Ingenieros de Petróleos  ISSN: 0  ed: 
-v. fasc. p. - ,1995,  DOI: `
+    article: `JUAN CARLOS VELEZ DIAZ, WENDY PAOLA NAVARRO ARIZA, MARIA GABRIELA CALLE TORRES, "A Novel Multivariable Algorithm for Detecting and Tracing Metal Mobile Objects Employing a Simple RFID Setup" . En: Reino Unido 
+International Journal of Distributed Sensor Networks  ISSN: 1550-1329  ed: Sage Publications (International)
+v.2015 fasc. p.1 - 10 ,2015,  DOI: 10.1155/2015/409617`
 }).info;
 
 console.log(articleExample)
