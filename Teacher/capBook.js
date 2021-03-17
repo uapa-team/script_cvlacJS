@@ -5,6 +5,7 @@ const {getSubstring} = require('../Utils');
 // module.exports =
 class CapBook {
     constructor(options) {
+        this.dni = options.dni;
         this.capBook = options.capBook;
     }
 
@@ -14,6 +15,7 @@ class CapBook {
      */
     get info() {
         return {
+            dni: this.dni,
             title: this.title,
             year: this.year,
             authors: this.authors,
@@ -86,6 +88,7 @@ class CapBook {
 
 
 const capBookExample = new CapBook({
+    dni: '79523926',
     capBook: `Tipo: Otro capítulo de libro publicado
 JUAN CARLOS VELEZ DIAZ, Tipo: Otro capítulo de libro publicado
 MARIA GABRIELA CALLE, Tipo: Otro capítulo de libro publicado
