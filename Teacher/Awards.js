@@ -3,7 +3,7 @@
 //     award: `Diploma de Honor 1-er puesto en la conferencia de Ingeniería Radioelectrónica, Electrónica y Eléctrica,Moscow Power Institute - de 2002`
 // });
 
-const {getSubstring} = require('../Utils');
+const {getSubstring, getLastSubstring} = require('../Utils');
 
 // module.exports =
 class Award {
@@ -50,7 +50,7 @@ class Award {
      * @returns {String} Award's period
      */
     get period() {
-        return getSubstring(this.award, '- de', -1);
+        return getLastSubstring(this.award, '-', -1);
     }
 
 
@@ -59,7 +59,7 @@ class Award {
 
 const awardExample = new Award({
     dni: '79523926',
-    award: `Beca ICETEX para estudios en la Union Sovietica,Icetex - Instituto Colombiano De Crédito Educativo - de 1989`
+    award: `Mención Honorifica,UNIVERSIDAD AUTONOMA DE MÉXICO DISTRITO FEDERAL - de 2005`
 }).info;
 
 console.log(awardExample)
