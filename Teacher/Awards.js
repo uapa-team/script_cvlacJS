@@ -20,7 +20,9 @@ class Award {
         return {
             dni: this.dni,
             name: this.name,
-            authors: this.authors,
+            institution: this.institution,
+            period: this.period,
+            source: 'CvLac'
         }
     }
 
@@ -37,18 +39,28 @@ class Award {
      * @returns {String} Award's institution
      */
     get institution() {
-        return this.award.split(',')[1];
+
+        const mainQuery = getSubstring(this.award, ',', '-');
+        //NOTE: This conditional is to handle when there is a result with award type
+        return mainQuery.includes(',') ? mainQuery.split(',')[1] : mainQuery;
     }
 
+    /**
+     * Get period
+     * @returns {String} Award's period
+     */
+    get period() {
+        return getSubstring(this.award, '- de', -1);
+    }
 
 
 }
 
 
 const awardExample = new Award({
-    dni: 79523926,
-    award: `Diploma de Honor 1-er puesto en la conferencia de Ingeniería Radioelectrónica, Electrónica y Eléctrica,Moscow Power Institute - de 2002`
-}).institution;
+    dni: '79523926',
+    award: `Beca ICETEX para estudios en la Union Sovietica,Icetex - Instituto Colombiano De Crédito Educativo - de 1989`
+}).info;
 
 console.log(awardExample)
 
