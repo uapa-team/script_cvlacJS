@@ -1,4 +1,4 @@
-// const eventExample = new Event({capBook: `Tipo: Otro capítulo de libro publicado JUAN CARLOS VELEZ DIAZ, "Calculo de la función de autocorrelación y el espectro energético de la envolvente compleja de una señal BPSK a la salida de un dispositivo no lineal con característica cuadrática" Proccedings Mpei . En: Rusia  ISBN: 5704609902  ed: Moscow Power Institute Tu Mpei , v. , p.80 - 82  N/A ,2003`});
+// const eventExample = new Event({event: `Tipo: Otro capítulo de libro publicado JUAN CARLOS VELEZ DIAZ, "Calculo de la función de autocorrelación y el espectro energético de la envolvente compleja de una señal BPSK a la salida de un dispositivo no lineal con característica cuadrática" Proccedings Mpei . En: Rusia  ISBN: 5704609902  ed: Moscow Power Institute Tu Mpei , v. , p.80 - 82  N/A ,2003`});
 
 const {getSubstring} = require('../Utils');
 
@@ -6,94 +6,79 @@ const {getSubstring} = require('../Utils');
 class Event {
     constructor(options) {
         this.dni = options.dni;
-        this.capBook = options.capBook;
+        this.event = options.event;
     }
 
     /**
-     * Get ALL capBook's info
+     * Get ALL event's info
      * @returns {Object} Object
      */
     get info() {
         return {
             dni: this.dni,
-            title: this.title,
-            year: this.year,
-            authors: this.authors,
-            country: this.country,
-            isbn: this.isbn,
-            editorial: this.editorial,
-            pages: this.pages,
+            // title: this.title,
+            // year: this.year,
+            // source: this.source,
+            // authors: this.authors,
+            // country: this.country,
+            name: this.name,
+            type: this.type,
+            // //TODO: Refactor scope with a properly name xD Idk the exact traslation of "ambito"
+            scope: this.scope,
+            initialDate: this.initialDate,
+            finalDate: this.finalDate,
+            // city: this.city,
+            // place: this.place,
         }
     }
 
     /**
-     * Get authors
-     * @returns {Array} Array of capBook's authors
+     * Get name
+     * @returns {String} Event's name
      */
-    get authors() {
-        const authors = this.capBook.split(',').filter( element => element.includes('Tipo:'))
-        return authors.map(element => getSubstring(element, 'Tipo: Otro capítulo de libro publicado', -1));
+    get name() {
+        return getSubstring(this.event, 'Nombre del evento:', 'Tipo de evento');
     }
 
     /**
-     * Get title
-     * @returns {String} Event's title
+     * Get type
+     * @returns {String} Event's type
      */
-    get title() {
-        return this.capBook.split('"')[1];
-    }
-
-     /**
-     * Get year
-     * @returns {String} Event's year
-     */
-    get year() {
-        return this.capBook.split(',').slice(-1)[0];
+    get type() {
+        return getSubstring(this.event, 'Tipo de evento:', 'Ámbito');
     }
 
     /**
-     * Get country
-     * @returns {String} Event's country
+     * Get scope
+     * @returns {String} Event's scope
      */
-    get country() {
-        return getSubstring(this.capBook, 'En:', 'ISBN');
+    get scope() {
+        return getSubstring(this.event, 'Ámbito:', 'Realizado el');
     }
 
     /**
-     * Get isbn
-     * @returns {String} Event's isbn
+     * Get initialDate
+     * @returns {String} Event's initialDate
      */
-    get isbn() {
-        return getSubstring(this.capBook, 'ISBN:', 'ed:');
+    get initialDate() {
+        return getSubstring(this.event, 'Realizado el:', ',');
     }
 
     /**
-     * Get editorial
-     * @returns {String} Event's editorial
+     * Get finalDate
+     * @returns {String} Event's finalDate
      */
-    get editorial() {
-        return getSubstring(this.capBook, 'ed:', ',');
-    }
-
-    /**
-     * Get pages
-     * @returns {String} Event's pages
-     */
-    get pages() {
-        return getSubstring(this.capBook, 'p.', ',');
-    }
-
+    // get finalDate() {
+    //     return getSubstring(this.event, 'Realizado el:', ',');
+    // }
 
 }
 
 
 const eventExample = new Event({
     dni: '79523926',
-    capBook: `Tipo: Otro capítulo de libro publicado
-JUAN CARLOS VELEZ DIAZ, Tipo: Otro capítulo de libro publicado
-MARIA GABRIELA CALLE, Tipo: Otro capítulo de libro publicado
-GEOVANNI BERDUGO, "Testbed for evaluating Wireless Sensor Networks with non-line of sight links" 2012 International Symposium On Wireless Communication Systems (Iswcs) Proceedings . En: Francia  ISBN: 978-1-4673-0762-8  ed: IEEE Publications , v. , p.136 - 140  1 ,2012`
+    event: `25 Nombre del evento: Encuentro Internacional de e-ciencia y educación apoyadas por redes de tecnologia avanzada  Tipo de evento: Encuentro  Ámbito: Internacional  Realizado el:2008-01-01 00:00:00.0,    en BOGOTÁ, D.C.   - Colciencias  `
 }).info;
 
-console.log(eventExample)
+// console.log(eventExample)
 
