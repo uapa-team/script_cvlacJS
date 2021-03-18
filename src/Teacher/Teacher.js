@@ -15,15 +15,17 @@ class Teacher {
      * @returns {Object} Cvelac teacher link
      */
     get info() {
-        const {dni, cvelacLink, articles} = this;
+        const {dni, cvelacLink, articles, languages} = this;
 
         return (async () => {
             const browser = await puppeteer.launch({headless: true});
             const page = await browser.newPage();
-            await page.goto(await cvelacLink(page, dni));
+            page.on('console', consoleObj => console.log(consoleObj.text()));
+            await page.goto(await cvelacLink(page, dni), {waitUntil: 'networkidle2'});
 
             const info = {
-                articles: await articles(page, dni),
+                // articles: await articles(page, dni),
+                languages: await languages(page, dni),
             };
 
             await browser.close();
@@ -50,6 +52,34 @@ class Teacher {
         return articles
     }
 
+    /**
+     * Get Lenguages
+     * @param page {Page} The browser page
+     * @param dni {String} Teacher's dni number
+     * @returns {Promise<Array<String>>} Object
+     */
+    //TODO: Find a way to get properties by this.property instead of passing it as params. Only happens with async functions :(
+    async languages(page, dni) {
+
+        return await page.evaluate(title => {
+            const rows = [...title.closest('tbody').children];
+            let languages = [];
+            for (let i = 2; i < rows.length; i++) {
+                const row = [...rows[i].cells].map(title => title.innerText.trim());
+                languages.push({
+                    language: row[0],
+                    speaks: row[1],
+                    writes: row[2],
+                    reads: row[3],
+                    understands: row[4],
+                });
+            }
+            return languages;
+            //Had to use this xPath query cuz there is not attribute to difference the languages table
+        }, (await page.$x("//h3[contains(., 'Idioma')]"))[0]);
+
+    }
+
 
     /**
      * Get Teahcer's cvlac link from minciencias website
@@ -68,4 +98,4 @@ class Teacher {
 }
 
 const teacherExample = new Teacher({dni: '79523926'}).info;
-// console.log(teacherExample.then(r => console.log(r.articles)));
+console.log(teacherExample.then(r => console.log(r.languages)));
