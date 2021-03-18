@@ -1,8 +1,6 @@
-// const capBookExample = new CapBook({capBook: `Tipo: Otro capítulo de libro publicado JUAN CARLOS VELEZ DIAZ, "Calculo de la función de autocorrelación y el espectro energético de la envolvente compleja de una señal BPSK a la salida de un dispositivo no lineal con característica cuadrática" Proccedings Mpei . En: Rusia  ISBN: 5704609902  ed: Moscow Power Institute Tu Mpei , v. , p.80 - 82  N/A ,2003`});
-
 const {getSubstring} = require('../Utils');
 
-// module.exports =
+module.exports =
 class CapBook {
     constructor(options) {
         this.dni = options.dni;
@@ -86,14 +84,14 @@ class CapBook {
 
 }
 
-
-const capBookExample = new CapBook({
-    dni: '79523926',
-    capBook: `Tipo: Otro capítulo de libro publicado
-JUAN CARLOS VELEZ DIAZ, Tipo: Otro capítulo de libro publicado
-MARIA GABRIELA CALLE, Tipo: Otro capítulo de libro publicado
-GEOVANNI BERDUGO, "Testbed for evaluating Wireless Sensor Networks with non-line of sight links" 2012 International Symposium On Wireless Communication Systems (Iswcs) Proceedings . En: Francia  ISBN: 978-1-4673-0762-8  ed: IEEE Publications , v. , p.136 - 140  1 ,2012`
-}).info;
-
-console.log(capBookExample)
+//
+// const capBookExample = new CapBook({
+//     dni: '79523926',
+//     capBook: `Tipo: Otro capítulo de libro publicado
+// JUAN CARLOS VELEZ DIAZ, Tipo: Otro capítulo de libro publicado
+// MARIA GABRIELA CALLE, Tipo: Otro capítulo de libro publicado
+// GEOVANNI BERDUGO, "Testbed for evaluating Wireless Sensor Networks with non-line of sight links" 2012 International Symposium On Wireless Communication Systems (Iswcs) Proceedings . En: Francia  ISBN: 978-1-4673-0762-8  ed: IEEE Publications , v. , p.136 - 140  1 ,2012`
+// }).info;
+//
+// console.log(capBookExample)
 

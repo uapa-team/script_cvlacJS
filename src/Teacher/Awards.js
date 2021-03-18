@@ -1,8 +1,3 @@
-// const awardExample = new Award({
-//     dni: 79523926,
-//     award: `Diploma de Honor 1-er puesto en la conferencia de Ingeniería Radioelectrónica, Electrónica y Eléctrica,Moscow Power Institute - de 2002`
-// });
-
 const {getSubstring, getLastSubstring} = require('../Utils');
 
 // module.exports =
@@ -55,12 +50,12 @@ class Award {
 
 
 }
+//
+//
+// const awardExample = new Award({
+//     dni: '79523926',
+//     award: `Mención Honorifica,UNIVERSIDAD AUTONOMA DE MÉXICO DISTRITO FEDERAL - de 2005`
+// }).info;
 
-
-const awardExample = new Award({
-    dni: '79523926',
-    award: `Mención Honorifica,UNIVERSIDAD AUTONOMA DE MÉXICO DISTRITO FEDERAL - de 2005`
-}).info;
-
-console.log(awardExample)
+// console.log(awardExample)
 

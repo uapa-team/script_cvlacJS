@@ -1,10 +1,6 @@
-// const articleExample = new Article({article: `FABIAN OMAR BETANCOURT QUIROGA, "Desarrollo de la Gestión Empresarial dentro de la Ingeniería de Petróleos" . En: Colombia 
-// Revista de La Asociación Colombiana de Ingenieros de Petróleos  ISSN: 0  ed: 
-// v. fasc. p. - ,1995,  DOI: `});
-
 const {getSubstring} = require('../Utils');
 
-// module.exports =
+module.exports =
 class Article {
     constructor(options) {
         this.article = options.article;
@@ -118,13 +114,13 @@ class Article {
 
 }
 
+//
+// const articleExample = new Article({
+//     dni: '79523926',
+//     article: `JUAN CARLOS VELEZ DIAZ, WENDY PAOLA NAVARRO ARIZA, MARIA GABRIELA CALLE TORRES, "A Novel Multivariable Algorithm for Detecting and Tracing Metal Mobile Objects Employing a Simple RFID Setup" . En: Reino Unido
+// International Journal of Distributed Sensor Networks  ISSN: 1550-1329  ed: Sage Publications (International)
+// v.2015 fasc. p.1 - 10 ,2015,  DOI: 10.1155/2015/409617`
+// }).info;
 
-const articleExample = new Article({
-    dni: '79523926',
-    article: `JUAN CARLOS VELEZ DIAZ, WENDY PAOLA NAVARRO ARIZA, MARIA GABRIELA CALLE TORRES, "A Novel Multivariable Algorithm for Detecting and Tracing Metal Mobile Objects Employing a Simple RFID Setup" . En: Reino Unido 
-International Journal of Distributed Sensor Networks  ISSN: 1550-1329  ed: Sage Publications (International)
-v.2015 fasc. p.1 - 10 ,2015,  DOI: 10.1155/2015/409617`
-}).info;
-
-console.log(articleExample)
+// console.log(articleExample)
 

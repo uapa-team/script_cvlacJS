@@ -3,7 +3,7 @@ const fs = require('fs');
 
 
 const Teacher = require('./Teacher/Teacher');
-const inputFilePath = './input.txt';
+const inputFilePath = './assets/input.txt';
 
 fs.readFile(inputFilePath, 'utf8', async (err, data) =>  {
   if (err) throw err;

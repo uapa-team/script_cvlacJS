@@ -1,8 +1,6 @@
-// const eventExample = new Event({event: `Tipo: Otro capítulo de libro publicado JUAN CARLOS VELEZ DIAZ, "Calculo de la función de autocorrelación y el espectro energético de la envolvente compleja de una señal BPSK a la salida de un dispositivo no lineal con característica cuadrática" Proccedings Mpei . En: Rusia  ISBN: 5704609902  ed: Moscow Power Institute Tu Mpei , v. , p.80 - 82  N/A ,2003`});
-
 const {getSubstring} = require('../Utils');
 
-// module.exports =
+module.exports =
 class Event {
     constructor(options) {
         this.dni = options.dni;
@@ -75,10 +73,10 @@ class Event {
 }
 
 
-const eventExample = new Event({
-    dni: '79523926',
-    event: `25 Nombre del evento: Encuentro Internacional de e-ciencia y educación apoyadas por redes de tecnologia avanzada  Tipo de evento: Encuentro  Ámbito: Internacional  Realizado el:2008-01-01 00:00:00.0,    en BOGOTÁ, D.C.   - Colciencias  `
-}).info;
+// const eventExample = new Event({
+//     dni: '79523926',
+//     event: `25 Nombre del evento: Encuentro Internacional de e-ciencia y educación apoyadas por redes de tecnologia avanzada  Tipo de evento: Encuentro  Ámbito: Internacional  Realizado el:2008-01-01 00:00:00.0,    en BOGOTÁ, D.C.   - Colciencias  `
+// }).info;
 
 // console.log(eventExample)
 
