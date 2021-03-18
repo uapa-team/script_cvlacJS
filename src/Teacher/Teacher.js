@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer');
-const Article = require('./Article');
+const Article = require('./Article.teacher');
 
 
 // const teacherExample = new Teacher('79523926');
