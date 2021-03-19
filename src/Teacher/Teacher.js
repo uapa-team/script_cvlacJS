@@ -1,95 +1,161 @@
 const puppeteer = require('puppeteer');
 const Article = require('./Article.teacher');
+const BookChapter = require('./BookChapter.teacher');
+const Award = require("./Award.teacher");
+const Event = require("./Event.teacher");
+const Book = require("./Book.teacher");
 
-
-// const teacherExample = new Teacher('79523926');
+//TODO: Refactor docs in each method
 
 // module.exports =
 class Teacher {
-    constructor(options) {
-        this.dni = options.dni;
+    constructor(properties) {
+        this._dni = properties.dni;
     }
 
     /**
      * Get ALL teacher's info
-     * @returns {Object} Cvelac teacher link
+     * @returns {Object} Cvelac teacher info
      */
-    get info() {
-        const {dni, cvelacLink, articles, languages} = this;
+    async info() {
+        const browser = await puppeteer.launch({headless: true});
+        const page = await browser.newPage();
+        page.on('console', consoleObj => console.log(consoleObj.text()));
+        await page.goto(await this.cvelacLink(page), {waitUntil: 'networkidle2'});
 
-        return (async () => {
-            const browser = await puppeteer.launch({headless: true});
-            const page = await browser.newPage();
-            page.on('console', consoleObj => console.log(consoleObj.text()));
-            await page.goto(await cvelacLink(page, dni), {waitUntil: 'networkidle2'});
 
-            const info = {
-                // articles: await articles(page, dni),
-                languages: await languages(page, dni),
+        const info = await Promise.all([
+            this.articles(page),
+            this.bookChapters(page),
+            this.awards(page),
+            this.events(page),
+            this.languages(page),
+            this.books(page),
+        ]).then(values => {
+            return {
+                articles: values[0],
+                bookChapters: values[1],
+                awards: values[2],
+                events: values[3],
+                languages: values[4],
+                books: values[5],
             };
+        });
 
-            await browser.close();
+        await browser.close();
 
-            return info;
-        })();
+        return info;
     }
 
     /**
      * Get articles
-     * @param page {Page} The browser page
-     * @param dni {String} Teacher's dni number
+     * @param page {Page} The browser page is working with
      * @returns {Promise<Array<String>>} Object
      */
-    //TODO: Find a way to get properties by this.property instead of passing it. Only happens with async functions :(
-    async articles(page, dni) {
-        let articles = await page.$$eval("a[name='articulos'] + table tr:nth-child(odd) td blockquote", elements => {
-            return elements.map((articleElement, i) => articleElement.innerText);
+    async articles(page) {
+        const articles = await page.$$eval("a[name='articulos'] + table tr:nth-child(odd) td blockquote", articlesElements => {
+            return articlesElements.map((articleElement, i) => articleElement.innerText);
         });
 
-        // console.log(articles)
-        articles = articles.map((article) => new Article({dni: dni, article: article}).info);
-
-        return articles
+        return articles.map(articleText => new Article({dni: this._dni, queryText: articleText}).info);
     }
 
     /**
-     * Get Lenguages
-     * @param page {Page} The browser page
-     * @param dni {String} Teacher's dni number
-     * @returns {Promise<Array<String>>} Object
+     * Get books chapters
+     * @param page {Page} The browser page is working with
+     * @returns {Promise<Array<Object>>} Object
      */
-    //TODO: Find a way to get properties by this.property instead of passing it as params. Only happens with async functions :(
-    async languages(page, dni) {
+    async bookChapters(page) {
+        let bookChapters = await page.$$eval("a[name='capitulos'] + table tr:not(:first-child) td blockquote", bookChaptersElements => {
+            return bookChaptersElements.map((bookChapterElement, i) => bookChapterElement.innerText);
+        });
+        return bookChapters.map(bookChapterText => new BookChapter({dni: this._dni, queryText: bookChapterText}).info);
+    }
+
+    /**
+     * Get awards
+     * @param page {Page} The browser page is working with
+     * @returns {Promise<Array<Object>>} Object
+     */
+    async awards(page) {
+
+        const awards = await page.evaluate(title => {
+
+            const awards = title.closest('tbody').querySelectorAll('tr:not(:first-child)');
+            return [...awards].map(award => award.innerText);
+
+            //Had to use this xPath query cuz there is not attribute to difference the languages table
+        }, (await page.$x("//h3[contains(., 'Reconocimientos')]"))[0]);
+
+        return awards.map(awardText => new Award({dni: this._dni, queryText: awardText}).info);
+
+    }
+
+    /**
+     * Get events
+     * @param page {Page} The browser page is working with
+     * @returns {Promise<Array<Object>>} Object
+     */
+    async events(page) {
+
+        let events = await page.$$eval("a[name='evento'] + table tr:not(:first-child) > td > table > tbody tr:first-child td", eventsElements => {
+            return eventsElements.map((bookChapterElement, i) => bookChapterElement.innerText);
+        });
+        return events.map(eventText => new Event({dni: this._dni, queryText: eventText}).info);
+
+    }
+
+    /**
+     * Get languages
+     * @param page {Page} The browser page is working with
+     * @returns {Promise<Array<Object>>} Object
+     */
+    async languages(page) {
 
         return await page.evaluate(title => {
-            const rows = [...title.closest('tbody').children];
+            const rows = title.closest('tbody').querySelectorAll('tr:nth-child(n+3)');
+
             let languages = [];
-            for (let i = 2; i < rows.length; i++) {
-                const row = [...rows[i].cells].map(title => title.innerText.trim());
+            rows.forEach(row => {
+                row = [...row.cells].map(title => title.innerText.trim());
                 languages.push({
+                    dni: this._dni,
                     language: row[0],
                     speaks: row[1],
                     writes: row[2],
                     reads: row[3],
                     understands: row[4],
                 });
-            }
+            });
+
             return languages;
             //Had to use this xPath query cuz there is not attribute to difference the languages table
         }, (await page.$x("//h3[contains(., 'Idioma')]"))[0]);
 
     }
 
+    /**
+     * Get books
+     * @param page {Page} The browser page is working with
+     * @returns {Promise<Array<Object>>} Object
+     */
+    async books(page) {
+
+        let books = await page.$$eval("a[name='libros'] + table tr:nth-child(odd) td blockquote", booksElements => {
+            return booksElements.map((bookElement, i) => bookElement.innerText);
+        });
+        return books.map(bookText => new Book({dni: this._dni, queryText: bookText}).info);
+
+    }
+
 
     /**
      * Get Teahcer's cvlac link from minciencias website
-     * @param page {Page} The browser page
-     * @param dni {String} Teacher's dni number
+     * @param page {Page} The browser page is working with
      * @returns {Promise<string>} Object
      */
-    //TODO: Find a way to get properties by this.property instead of passing it. Only happens with async functions :(
-    async cvelacLink(page, dni) {
-        const minCienciasUrl = 'https://sba.minciencias.gov.co/tomcat/Buscador_HojasDeVida/busqueda?q=' + dni;
+    async cvelacLink(page) {
+        const minCienciasUrl = 'https://sba.minciencias.gov.co/tomcat/Buscador_HojasDeVida/busqueda?q=' + this._dni;
         await page.goto(minCienciasUrl);
         return await page.$eval('#link_res_0', element => element.getAttribute('href'));
     }
@@ -97,5 +163,6 @@ class Teacher {
 
 }
 
-const teacherExample = new Teacher({dni: '79523926'}).info;
-console.log(teacherExample.then(r => console.log(r.languages)));
+const teacherExample = new Teacher({dni: '91489688'});
+
+teacherExample.info().then(res => console.log(res))

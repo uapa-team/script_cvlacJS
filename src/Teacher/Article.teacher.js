@@ -3,8 +3,8 @@ const {getSubstring} = require('../Utils');
 module.exports =
 class Article {
     constructor(options) {
-        this.article = options.article;
-        this.dni = options.dni;
+        this._dni = options.dni;
+        this._queryText = options.queryText;
     }
 
     /**
@@ -13,7 +13,7 @@ class Article {
      */
     get info() {
         return {
-            dni: this.dni,
+            dni: this._dni,
             title: this.title,
             year: this.year,
             editorial: this.editorial,
@@ -31,7 +31,7 @@ class Article {
      * @returns {Array} Array of article's authors
      */
     get authors() {
-        return this.article.split('"')[0].split(',').filter((nameStr) => {
+        return this._queryText.split('"')[0].split(',').filter((nameStr) => {
             //NOTE: I'd like to use .map but sometimes the split array returns a void string as normal array element
             const name = nameStr.trim();
             return nameStr.trim();
@@ -43,7 +43,7 @@ class Article {
      * @returns {String} Article's title
      */
     get title() {
-        return this.article.split('"')[1].split(',')[0]
+        return this._queryText.split('"')[1].split(',')[0]
     }
 
     /**
@@ -51,7 +51,7 @@ class Article {
      * @returns {String} Article's country
      */
     get country() {
-        return getSubstring(this.article, 'En:', '\n');
+        return getSubstring(this._queryText, 'En:', '\n');
     }
 
     /**
@@ -59,7 +59,7 @@ class Article {
      * @returns {String} Article's issn
      */
     get issn() {
-        return getSubstring(this.article, 'ISSN:', 'ed:');
+        return getSubstring(this._queryText, 'ISSN:', 'ed:');
     }
 
 
@@ -68,7 +68,7 @@ class Article {
      * @returns {String} Article's magazine
      */
     get magazine() {
-        return getSubstring(this.article, this.country, 'ISSN:');
+        return getSubstring(this._queryText, this.country, 'ISSN:');
     }
 
     /**
@@ -77,7 +77,7 @@ class Article {
      */
     get editorial() {
         //TODO: fix this return cuz in some cases there is not 'v.' ... :(
-        return getSubstring(this.article, 'ed:', 'v.');
+        return getSubstring(this._queryText, 'ed:', 'v.');
     }
 
     /**
@@ -85,7 +85,7 @@ class Article {
      * @returns {String} Article's pages
      */
     get pages() {
-        return getSubstring(this.article, 'p.', -1).split(",")[0];
+        return getSubstring(this._queryText, 'p.', -1).split(",")[0];
     }
 
     /**
@@ -93,7 +93,7 @@ class Article {
      * @returns {String} Article's year
      */
     get year() {
-        return getSubstring(this.article, this.pages, 'DOI:').replace(/,/g, '');
+        return getSubstring(this._queryText, this.pages, 'DOI:').replace(/,/g, '');
     }
 
     /**
@@ -101,7 +101,7 @@ class Article {
      * @returns {String} Article's doi
      */
     get doi() {
-        return getSubstring(this.article, 'DOI:', -1);
+        return getSubstring(this._queryText, 'DOI:', -1);
     }
 
     /**
@@ -109,7 +109,7 @@ class Article {
      * @returns {String} Article's vol
      */
     get vol() {
-        return getSubstring(this.article, 'v.', 'p.');
+        return getSubstring(this._queryText, 'v.', 'p.');
     }
 
 }

@@ -1,10 +1,10 @@
 const {getSubstring} = require('../Utils');
 
 module.exports =
-class CapBook {
-    constructor(options) {
-        this.dni = options.dni;
-        this.capBook = options.capBook;
+class BookChapter {
+    constructor(properties) {
+        this._dni = properties.dni;
+        this._queryText = properties.queryText;
     }
 
     /**
@@ -13,7 +13,7 @@ class CapBook {
      */
     get info() {
         return {
-            dni: this.dni,
+            dni: this._dni,
             title: this.title,
             year: this.year,
             authors: this.authors,
@@ -29,63 +29,63 @@ class CapBook {
      * @returns {Array} Array of capBook's authors
      */
     get authors() {
-        const authors = this.capBook.split(',').filter( element => element.includes('Tipo:'))
+        const authors = this._queryText.split(',').filter(element => element.includes('Tipo:'))
         return authors.map(element => getSubstring(element, 'Tipo: Otro capítulo de libro publicado', -1));
     }
 
     /**
      * Get title
-     * @returns {String} CapBook's title
+     * @returns {String} BookChapter's title
      */
     get title() {
-        return this.capBook.split('"')[1];
+        return this._queryText.split('"')[1];
     }
 
      /**
      * Get year
-     * @returns {String} CapBook's year
+     * @returns {String} BookChapter's year
      */
     get year() {
-        return this.capBook.split(',').slice(-1)[0];
+        return this._queryText.split(',').slice(-1)[0];
     }
 
     /**
      * Get country
-     * @returns {String} CapBook's country
+     * @returns {String} BookChapter's country
      */
     get country() {
-        return getSubstring(this.capBook, 'En:', 'ISBN');
+        return getSubstring(this._queryText, 'En:', 'ISBN');
     }
 
     /**
      * Get isbn
-     * @returns {String} CapBook's isbn
+     * @returns {String} BookChapter's isbn
      */
     get isbn() {
-        return getSubstring(this.capBook, 'ISBN:', 'ed:');
+        return getSubstring(this._queryText, 'ISBN:', 'ed:');
     }
 
     /**
      * Get editorial
-     * @returns {String} CapBook's editorial
+     * @returns {String} BookChapter's editorial
      */
     get editorial() {
-        return getSubstring(this.capBook, 'ed:', ',');
+        return getSubstring(this._queryText, 'ed:', ',');
     }
 
     /**
      * Get pages
-     * @returns {String} CapBook's pages
+     * @returns {String} BookChapter's pages
      */
     get pages() {
-        return getSubstring(this.capBook, 'p.', ',');
+        return getSubstring(this._queryText, 'p.', ',');
     }
 
 
 }
 
 //
-// const capBookExample = new CapBook({
+// const capBookExample = new BookChapter({
 //     dni: '79523926',
 //     capBook: `Tipo: Otro capítulo de libro publicado
 // JUAN CARLOS VELEZ DIAZ, Tipo: Otro capítulo de libro publicado

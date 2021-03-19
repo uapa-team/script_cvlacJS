@@ -1,10 +1,10 @@
 const {getSubstring, getLastSubstring} = require('../Utils');
 
-// module.exports =
+module.exports =
 class Award {
     constructor(options) {
-        this.award = options.award;
-        this.dni = options.dni;
+        this._queryText = options.queryText;
+        this._dni = options.dni;
     }
 
     /**
@@ -13,7 +13,7 @@ class Award {
      */
     get info() {
         return {
-            dni: this.dni,
+            dni: this._dni,
             name: this.name,
             institution: this.institution,
             period: this.period,
@@ -26,7 +26,7 @@ class Award {
      * @returns {String} Award's name
      */
     get name() {
-        return this.award.split(',')[0];
+        return this._queryText.split(',')[0];
     }
 
     /**
@@ -35,9 +35,9 @@ class Award {
      */
     get institution() {
 
-        const mainQuery = getSubstring(this.award, ',', '-');
+        const mainString = getSubstring(this._queryText, ',', '-');
         //NOTE: This conditional is to handle when there is a result with award type
-        return mainQuery.includes(',') ? mainQuery.split(',')[1] : mainQuery;
+        return mainString.includes(',') ? mainString.split(',')[1] : mainString;
     }
 
     /**
@@ -45,7 +45,7 @@ class Award {
      * @returns {String} Award's period
      */
     get period() {
-        return getLastSubstring(this.award, '-', -1);
+        return getLastSubstring(this._queryText, '-', -1);
     }
 
 
