@@ -33,7 +33,6 @@ class Article {
     get authors() {
         return this._queryText.split('"')[0].split(',').filter((nameStr) => {
             //NOTE: I'd like to use .map but sometimes the split array returns a void string as normal array element
-            const name = nameStr.trim();
             return nameStr.trim();
         });
     }

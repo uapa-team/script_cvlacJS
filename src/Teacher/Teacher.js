@@ -4,6 +4,10 @@ const BookChapter = require('./BookChapter.teacher');
 const Award = require("./Award.teacher");
 const Event = require("./Event.teacher");
 const Book = require("./Book.teacher");
+const Network = require("./Network.teacher");
+const Sofware = require("./Software.teacher");
+const Title = require("./Title.teacher");
+const Judge = require("./Judge.teacher");
 
 //TODO: Refactor docs in each method
 
@@ -31,6 +35,10 @@ class Teacher {
             this.events(page),
             this.languages(page),
             this.books(page),
+            this.networks(page),
+            this.softwares(page),
+            this.titles(page),
+            this.judges(page),
         ]).then(values => {
             return {
                 articles: values[0],
@@ -39,6 +47,10 @@ class Teacher {
                 events: values[3],
                 languages: values[4],
                 books: values[5],
+                networks: values[6],
+                softwares: values[7],
+                titles: values[8],
+                judges: values[9],
             };
         });
 
@@ -148,6 +160,66 @@ class Teacher {
 
     }
 
+    /**
+     * Get networks
+     * @param page {Page} The browser page is working with
+     * @returns {Promise<Array<Object>>} Object
+     */
+    async networks(page) {
+
+        let networks = await page.$$eval("a[name='re_co'] + table tr:not(:first-child) td blockquote", networksElements => {
+            return networksElements.map((networkElement, i) => networkElement.innerText);
+        });
+
+        return networks.map(networkText => new Network({dni: this._dni, queryText: networkText}).info);
+
+    }
+
+    /**
+     * Get softwares
+     * @param page {Page} The browser page is working with
+     * @returns {Promise<Array<Object>>} Object
+     */
+    async softwares(page) {
+
+        let softwares = await page.$$eval("a[name='software'] + table tr:nth-child(odd) td blockquote", softwaresElements => {
+            return softwaresElements.map((sofwaresElement, i) => sofwaresElement.innerText);
+        });
+
+        return softwares.map(softwareText => new Sofware({dni: this._dni, queryText: softwareText}).info);
+
+    }
+
+    /**
+     * Get titles
+     * @param page {Page} The browser page is working with
+     * @returns {Promise<Array<Object>>} Object
+     */
+    async titles(page) {
+
+        let titles = await page.$$eval("a[name='formacion_acad'] + table tr:not(:first-child) td:nth-child(2)", titlesElements => {
+            return titlesElements.map((titlesElement, i) => titlesElement.innerText);
+        });
+
+        return titles.map(titleText => new Title({dni: this._dni, queryText: titleText}).info);
+
+    }
+
+     /**
+     * Get judges
+     * @param page {Page} The browser page is working with
+     * @returns {Promise<Array<Object>>} Object
+     */
+    async judges(page) {
+
+        let judges = await page.$$eval("a[name='jurado'] + table tr:nth-child(odd) td blockquote", judgesElements => {
+            return judgesElements.map((judgesElement, i) => judgesElement.innerText);
+        });
+
+        return judges.map(titleText => new Judge({dni: this._dni, queryText: titleText}).info);
+
+    }
+
 
     /**
      * Get Teahcer's cvlac link from minciencias website
@@ -163,6 +235,6 @@ class Teacher {
 
 }
 
-const teacherExample = new Teacher({dni: '91489688'});
+const teacherExample = new Teacher({dni: '52176853'});
 
-teacherExample.info().then(res => console.log(res))
+teacherExample.info().then(res => console.log(res.articles))

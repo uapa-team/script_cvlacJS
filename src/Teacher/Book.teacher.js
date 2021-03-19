@@ -1,4 +1,4 @@
-const {getSubstring, getLastSubstring} = require('../Utils');
+const {getSubstring} = require('../Utils');
 
 module.exports =
 class Book {
@@ -45,7 +45,7 @@ class Book {
      * @returns {String} Book's editorial
      */
     get editorial() {
-        return getLastSubstring(this._queryText, 'ed:', 'ISBN:');
+        return getSubstring(this._queryText, 'ed:', 'ISBN:');
     }
 
     /**
@@ -53,7 +53,7 @@ class Book {
      * @returns {String} Book's isbn
      */
     get isbn() {
-        return getLastSubstring(this._queryText, 'ISBN:', 'v.');
+        return getSubstring(this._queryText, 'ISBN:', 'v.');
     }
 
 }

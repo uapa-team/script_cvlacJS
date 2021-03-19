@@ -16,12 +16,12 @@ class Event {
             dni: this._dni,
             // title: this.title,
             // year: this.year,
-            // source: this.source,
+            // source: this. source,
             // authors: this.authors,
             // country: this.country,
             name: this.name,
             type: this.type,
-            // //TODO: Refactor scope with a properly name xD Idk the exact traslation of "ambito"
+            // //TODO: Refactor scope with a properly name Idk the exact traslation of "ambito"
             scope: this.scope,
             initialDate: this.initialDate,
             // finalDate: this.finalDate,

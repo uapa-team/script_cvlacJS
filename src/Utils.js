@@ -24,7 +24,7 @@ module.exports = class Utils {
      */
     static getLastSubstring(string, start, end) {
         string = string.slice(string.lastIndexOf(start) + start.length);
-        const endIndex = end === -1 ? undefined : string.lastIndexOf(end);
+        const endIndex = end === -1 ? undefined : string.indexOf(end);
         return string.substring(0, endIndex).trim();
     }
 }
