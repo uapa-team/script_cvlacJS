@@ -55,7 +55,7 @@ class Judge {
 
 
 }
-
+//
 // const judgeExample = new Judge({
 //     dni: '79523926',
 //     queryText: `SONIA LUCIA RINCON PRAT, Titulo: Kinetik study and phenomenological modeling of a biomass particle during fast pyrolysis process Tipo de trabajo presentado: Proyecto de grado/Tesis en:  UNIVERSIDAD NACIONAL DE COLOMBIA SEDE MEDELLÍN  programa académico Doctorado en Ingeniería - Sistemas Energéticos  Nombre del orientado: Jorge Iván Montoya Arbeláez  
