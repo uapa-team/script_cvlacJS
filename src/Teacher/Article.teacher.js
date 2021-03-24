@@ -75,7 +75,7 @@ class Article {
      * @returns {String} Article's editorial
      */
     get editorial() {
-        //TODO: fix this return cuz in some cases there is not 'v.' ... :(
+        //FIXME: fix this return cuz in some cases there is not 'v.' ... :(
         return getSubstring(this._queryText, 'ed:', 'v.');
     }
 

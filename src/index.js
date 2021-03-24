@@ -1,46 +1,55 @@
 //Libraries
 const fs = require('fs');
+const ObjectsToCsv = require('objects-to-csv');
 const puppeteer = require('puppeteer');
 
 
 const Teacher = require('./Teacher/Teacher');
-const inputFilePath = '/home/jacobo/Proyects/UAPA/script_cvlacJS/src/assets/input.txt';
+const inputFilePath = '/home/jacobo/Proyects/UAPA/script_cvlacJS/src/assets/example.txt';
 
 fs.readFile(inputFilePath, 'utf8', async (err, data) => {
     if (err) throw err;
     // Get dnis divided by \n
     const dnis = data.split('\n');
-    // const teachersInfo = await Promise.all(dnis.map(dni => {
-    //
-    //
-    // })).then(teachers => {
-    //
-    //     return teachers.map(teacher => teacher);
-    // });
 
+    const teachers = await puppeteer.launch().then(async browser => {
 
-    puppeteer.launch().then(async browser => {
+        //For each teacher and to work in parallel an new page is made.
+        const promises = dnis.map(async dni => {
+            return await browser.newPage().then(async pageInstance => {
+                return await new Teacher(dni).info(pageInstance);
+            })
+        })
 
-        const promises = [];
-        for (let i = 0; i < dnis.length; i++) {
-            promises.push(browser.newPage().then(async page => {
-                return await new Teacher(dnis[i]).info(page);
-            }))
-        }
         const teachersInfo = await Promise.all(promises).then(teachers => {
+            //Here is where u get what u want. Example for get articles:
+            //return teachers.map(teacher => teacher.articles);
             return teachers.map(teacher => teacher);
-        });
-        browser.close();
+        }).catch(error => console.log(error));
 
-            console.log(teachersInfo, dnis)
+        await browser.close();
 
+        return teachersInfo;
     });
 
 
+    //Make Json file
+    fs.writeFile('./dist/teachers.json', JSON.stringify(teachers), () => {
+        if (err) throw err;
+        console.log('Json file was created successfully :)');
+    });
 
 
-    // const cvlacUrls = await Promise.all(dnis.map((dni) => getTeacherLink(dni)));
+    //Make cvs File
+    await new ObjectsToCsv(teachers).toDisk('./dist/teachers.csv').then(value => {
+        console.log('Cvs file was created successfully :)');
+
+    }).catch(error => console.log(error));
+
+
 });
+
+
 
 
 

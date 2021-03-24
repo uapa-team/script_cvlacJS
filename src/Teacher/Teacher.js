@@ -14,8 +14,8 @@ const CoupleEvaluator = require("./CoupleEvaluator.teacher");
 
 module.exports =
     class Teacher {
-        constructor(properties) {
-            this._dni = properties.dni;
+        constructor(options) {
+            this._dni = options.dni;
         }
 
         /**
@@ -24,10 +24,11 @@ module.exports =
          */
         async info(page) {
             // page.on('console', consoleObj => console.log(consoleObj.text()));
-            await page.goto(await this.cvelacLink(page), {waitUntil: 'networkidle2'});
+            const cvelacLink = await this.cvelacLink(page);
+            await page.goto(cvelacLink, {waitUntil: 'networkidle2'});
 
 
-            const info = await Promise.all([
+            return await Promise.all([
                 this.articles(page),
                 this.bookChapters(page),
                 this.awards(page),
@@ -56,8 +57,6 @@ module.exports =
                     couplesEvaluators: values[11],
                 };
             });
-
-            return info;
         }
 
         /**
@@ -263,20 +262,14 @@ module.exports =
         }
 
         /**
-         * Get Teahcer's cvlac link from minciencias website
+         * Get Teacher's cvlac link from minciencias website
          * @param page {Page} The browser page is working with
          * @returns {Promise<string>} Object
          */
         async cvelacLink(page) {
             const minCienciasUrl = 'https://sba.minciencias.gov.co/tomcat/Buscador_HojasDeVida/busqueda?q=' + this._dni;
-            await page.goto(minCienciasUrl);
-
-            try {
-              return await page.$eval('#link_res_0', element => element.getAttribute('href'));
-            } catch (error) {
-                console.error(error);
-            }
-
+            await page.goto(minCienciasUrl,  { waitUntil: 'networkidle2' });
+            return await page.$eval('#link_res_0', element => element.getAttribute('href'));
         }
 
     }
