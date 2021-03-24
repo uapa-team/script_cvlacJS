@@ -5,7 +5,7 @@ const puppeteer = require('puppeteer');
 
 
 const Teacher = require('./Teacher/Teacher');
-const inputFilePath = '/home/jacobo/Proyects/UAPA/script_cvlacJS/src/assets/example.txt';
+const inputFilePath = '/home/jacobo/Proyects/UAPA/script_cvlacJS/src/assets/input.txt';
 
 fs.readFile(inputFilePath, 'utf8', async (err, data) => {
     if (err) throw err;
@@ -17,12 +17,12 @@ fs.readFile(inputFilePath, 'utf8', async (err, data) => {
         //For each teacher and to work in parallel an new page is made.
         const promises = dnis.map(async dni => {
             return await browser.newPage().then(async pageInstance => {
-                return await new Teacher(dni).info(pageInstance);
+                return await new Teacher({dni: dni}).info(pageInstance);
             })
         })
 
         const teachersInfo = await Promise.all(promises).then(teachers => {
-            //Here is where u get what u want. Example for get articles:
+            //Here is where u get what u want. Example to get articles:
             //return teachers.map(teacher => teacher.articles);
             return teachers.map(teacher => teacher);
         }).catch(error => console.log(error));

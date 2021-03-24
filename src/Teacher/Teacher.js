@@ -267,7 +267,11 @@ module.exports =
          * @returns {Promise<string>} Object
          */
         async cvelacLink(page) {
-            const minCienciasUrl = 'https://sba.minciencias.gov.co/tomcat/Buscador_HojasDeVida/busqueda?q=' + this._dni;
+
+            //NOTE: Do not remove the following line. For some reason if u use this._dni, the method is invoked before dni even exists.
+            const {dni} = this;
+
+            const minCienciasUrl = 'https://sba.minciencias.gov.co/tomcat/Buscador_HojasDeVida/busqueda?q=' + dni;
             await page.goto(minCienciasUrl,  { waitUntil: 'networkidle2' });
             return await page.$eval('#link_res_0', element => element.getAttribute('href'));
         }
