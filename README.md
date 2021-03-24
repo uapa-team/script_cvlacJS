@@ -29,36 +29,38 @@ node src/index.js
 
 * Lista los números de identificación de quienes deseas obtener la información en [este archivo](./src/assets/input.txt)
   como en el archivo [ejemplo](./src/assets/input.txt).
-* Modifica en el archivo [principal](./src/index.js) las siguientes lineas de código para obtener lo deseado (). En el siguiente
+* Modifica en el archivo [principal](./src/index.js) las siguientes lineas de código para obtener lo deseado (lineas 24 - 28). En el siguiente
   caso se obtendra TODA la información de cada profesor:
 
-```javascript
-const teachersInfo = await Promise.all(promises).then(teachers => {
-    return teachers.map(teacher => teacher);
-}).catch(error => console.log(error));
-```
+    ```javascript
+    const teachersInfo = await Promise.all(promises).then(teachers => {
+        return teachers.map(teacher => teacher);
+    }).catch(error => console.log(error));
+    ```
+    
+    según la propiedad que se necesite el script cambia
 
-O si se quiere obtener solamente los artículos, sería:
+    Propiedad                        | Modificación
+    ------------------               | -------------
+    Artículos                        | teacher.articles
+    Capítulos de libro               | teacher.bookChapters
+    Distinciones                     | teacher.awards
+    Eventos                          | teacher.events
+    Idioma                           | teacher.languages
+    Libros                           | teacher.books
+    Redes                            | teacher.networks
+    Software                         | teacher.softwares
+    Formación Académica              | teacher.titles
+    Jurados en comite de evaluación  | teacher.judges
+    Proyectos                        | teacher.projects
+    Par evaluador                    | teacher.couplesEvaluators
 
-```javascript
-const teachersInfo = await Promise.all(promises).then(teachers => {
-    return teachers.map(teacher => teacher.articles);
-}).catch(error => console.log(error));
-```
+    Ejemplo para obtener solo los artíclos de cada profesor:
+  
+    ```javascript
+    const teachersInfo = await Promise.all(promises).then(teachers => {
+        return teachers.map(teacher => teacher.articles);
+    }).catch(error => console.log(error));
+    ```
 
-Propiedad                        | Modificación
-------------------               | -------------
-Artículos                        | teacher.articles
-Capítulos de libro               | teacher.bookChapters
-Distinciones                     | teacher.awards
-Eventos                          | teacher.events
-Idioma                           | teacher.languages
-Libros                           | teacher.books
-Redes                            | teacher.networks
-Software                         | teacher.softwares
-Formación Académica              | teacher.titles
-Jurados en comite de evaluación  | teacher.judges
-Proyectos                        | teacher.projects
-Par evaluador                    | teacher.couplesEvaluators
-
-* En la carpeta dist/ quedarán alojados los resultados de tu consulta.
+* En la carpeta [dist](./dist) quedarán alojados los resultados de la consulta.
