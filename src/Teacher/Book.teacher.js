@@ -14,7 +14,7 @@ class Book {
     get info() {
         return {
             dni: this._dni,
-            name: this.authors,
+            authors: this.authors,
             country: this.country,
             editorial: this.editorial,
             isbn: this.isbn,
