@@ -29,7 +29,7 @@ node src/index.js
 
 * Lista los números de identificación de quienes deseas obtener la información en [este archivo](./src/assets/input.txt)
   como en el archivo [ejemplo](./src/assets/input.txt).
-* Modifica en el archivo [principal](./src/index.js) las siguientes lineas de código para obtener lo deseado (lineas 24 - 28). En el siguiente
+* Modifica en el archivo [principal](./src/index.js) las siguientes lineas de código para obtener lo deseado (lineas 32 - 36). En el siguiente
   caso se obtendra TODA la información de cada profesor:
 
     ```javascript
