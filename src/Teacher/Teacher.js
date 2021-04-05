@@ -9,13 +9,14 @@ const Title = require("./Title.teacher");
 const Judge = require("./Judge.teacher");
 const Project = require("./Project.teacher");
 const CoupleEvaluator = require("./CoupleEvaluator.teacher");
+const puppeteer = require('puppeteer');
 
-//TODO: Refactor docs in each method
 
 module.exports =
     class Teacher {
         constructor(options) {
             this._dni = options.dni;
+            this._cvlacLink = options.cvlacLink;
         }
 
         /**
@@ -23,10 +24,8 @@ module.exports =
          * @returns {Object} Cvelac teacher info
          */
         async info(page) {
-            // page.on('console', consoleObj => console.log(consoleObj.text()));
-            const cvelacLink = await this.cvelacLink(page);
-            await page.goto(cvelacLink, {waitUntil: 'networkidle2'});
 
+            await page.goto(this._cvlacLink, {waitUntil: 'load'});
 
             return await Promise.all([
                 this.articles(page),
@@ -127,14 +126,12 @@ module.exports =
          */
         async languages(page) {
 
-            return await page.evaluate(title => {
+            let languages = await page.evaluate(title => {
                 const rows = title.closest('tbody').querySelectorAll('tr:nth-child(n+3)');
-
-                let languages = [];
+                let languagesArr = [];
                 rows.forEach(row => {
                     row = [...row.cells].map(title => title.innerText.trim());
-                    languages.push({
-                        dni: this._dni,
+                    languagesArr.push({
                         language: row[0],
                         speaks: row[1],
                         writes: row[2],
@@ -144,9 +141,14 @@ module.exports =
                     });
                 });
 
-                return languages;
+                return languagesArr;
                 //Had to use this xPath query cuz there is not attribute to difference the languages table
             }, (await page.$x("//h3[contains(., 'Idioma')]"))[0]);
+            languages.map(language => {
+                language['dni'] = this._dni;
+                return language;
+            })
+            return languages;
 
         }
 
@@ -260,22 +262,6 @@ module.exports =
             }).info);
 
         }
-
-        /**
-         * Get Teacher's cvlac link from minciencias website
-         * @param page {Page} The browser page is working with
-         * @returns {Promise<string>} Object
-         */
-        async cvelacLink(page) {
-
-            //NOTE: Do not remove the following line. For some reason if u use this._dni, the method is invoked before dni even exists.
-            const {dni} = this;
-
-            const minCienciasUrl = 'https://sba.minciencias.gov.co/tomcat/Buscador_HojasDeVida/busqueda?q=' + dni;
-            await page.goto(minCienciasUrl,  { waitUntil: 'networkidle2' });
-            return await page.$eval('#link_res_0', element => element.getAttribute('href'));
-        }
-
     }
 
 // const teacherExample = new Teacher({dni: '52176853'});

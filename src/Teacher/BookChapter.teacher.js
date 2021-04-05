@@ -30,7 +30,7 @@ class BookChapter {
      */
     get authors() {
         const authors = this._queryText.split(',').filter(element => element.includes('Tipo:'))
-        return authors.map(element => getSubstring(element, 'Tipo: Otro capítulo de libro publicado', -1));
+        return authors.map(element => getSubstring(element, 'Tipo: Capítulo de libro', -1));
     }
 
     /**
