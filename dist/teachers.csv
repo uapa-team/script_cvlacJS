@@ -1,18 +1,31 @@
-dni,title,year,authors,country,isbn,editorial,pages
-12105821,Desarrollo de plataforma robotizada compuesta por AGV´s bajo el enfoque de industria 4.0,2018,"[""ERNESTO CORDOBA NIETO""]",Colombia,978-958-5413-78-8,Universidad de Antioquia,86 - 95
-12105821,Automatización Industrial,,"[""libro publicado\nERNESTO CORDOBA NIETO""]",Colombia,9589037283,Colciencias,222 - 226
-dni,title,year,authors,country,isbn,editorial,pages
-79647908,Simulación computacional de la morfogénesis ósea,,"[""libro publicado\nDIEGO ALEXANDER GARZON ALVARADO"",""e libro publicado\nMANUEL DOBLARE"",""e libro publicado\nJOSE MANUEL GARCIA""]",España,0,Universidad de Valladolid,113 - 128  1
-79647908,A numerical approach of bone morphogenesis,,"[""libro publicado\nDIEGO ALEXANDER GARZON ALVARADO"",""e libro publicado\nMANUEL DOBLARE"",""e libro publicado\nJOSE MANUEL GARCIA""]",España,0,Centro Internacional de Métodos Numéricos en Ingeniería,160 - 175  1
-79647908,Matrices Inyectables Autoorganizadas por Sistemas de Reacción-Difusión,2011,"[""libro publicado\nDIEGO ALEXANDER GARZON ALVARADO""]",Colombia,978-958-857-7,Editorial Universidad Nacional De Colombia,255 - 294
-79647908,Design Methodology for biped robots: Applications in robotics and Prothesis,,"[""libro publicado\nDIEGO ALEXANDER GARZON ALVARADO"",""e libro publicado\nMAXIMO ALEJANDRO ROA GARZON"",""e libro publicado\nRICARDO RAMIREZ""]",Austria,0,I-Tech,111 - 126  1
-79647908,Influencia de la acumulación de cargas en el proceso del daño del cártilago articular,2011,"[""libro publicado\nDIEGO ALEXANDER GARZON ALVARADO""]",Colombia,978-958-719-857-7,Unilibros Universidad Nacional De Colombia,17 - 60
-79647908,MODELO COMPUTACIONAL DE DOS ETAPAS DEL DESARROLLO ÓSEO POSNATAL: APARICIÓN Y FORMACIÓN DEL CENTRO SECUNDARIO DE OSIFICACIÓN,2011,"[""libro publicado\nDIEGO ALEXANDER GARZON ALVARADO""]",Colombia,978-958-719-857-7,Unilibros Universidad Nacional De Colombia,161 - 195
-79647908,Modelo matemático de la migración de Fibroplastos y producción de Colágeno en el proceso de reparación del ligamento colateral medial,2011,"[""libro publicado\nDIEGO ALEXANDER GARZON ALVARADO""]",Colombia,978-958-719-857-7,Unilibros Universidad Nacional De Colombia,61 - 92
-79647908,Introucción a la aparición de la biomecánica y la mecanobiología computacional,2011,"[""libro publicado\nDIEGO ALEXANDER GARZON ALVARADO""]",Colombia,978-958-719-857-7,Unilibros Universidad Nacional De Colombia,1 - 16
-79647908,Mechanobiology of oral implantable devices,2011,"[""libro publicado\nDIEGO ALEXANDER GARZON ALVARADO""]",Estados Unidos,979-953-307-609-5,,309 - 336
-dni,title,year,authors,country,isbn,editorial,pages
-91489688,Performance of a prototype articulated bus fueled by natural gas to be used in Colombia's massive transportation systems,2007,"[""JUAN MIGUEL MANTILLA GONZALEZ"",""HELMER ACEVEDO GAMBOA"",""CARLOS ALBERTO DUQUE DAZA"",""C GALEANO""]",Estados Unidos,978-0-7680-1969-8,SAE INTERNATIONAL,-
-91489688,The potentio of using vegetable oil fuels and ethanol as fuels for engine operation at heights well above sea level,2007,"[""JUAN MIGUEL MANTILLA GONZALEZ"",""HELMER ACEVEDO GAMBOA"",""CARLOS ALBERTO DUQUE DAZA"",""C GALEANO""]",Estados Unidos,978-0-7680-1969-8,SAE INTERNATIONAL,-
-dni,title,year,authors,country,isbn,editorial,pages
-79357694,Biodiesel production from Waste Cooking Oil,,"[""libro publicado\nFABIO EMIRO SIERRA VARGAS"",""e libro publicado\nCARLOS ALBERTO GUERRERO FAJARDO"",""e libro publicado\nANDRES GUERRERO ROMERO""]",España,979-956-307-713-0,,23 - 45  1
+dni,name,institution,period,level
+79523926,Ingenieria,UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO,Enerode2001 - de 2005,Ingenieria
+79523926,Maestría en Ingeniería,UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO,Enerode1998 - Noviembrede 2000,Maestría
+79523926,Innovación Industrial,UNIVERSIDAD NACIONAL DE COLOMBIA SEDE BOGOTA,Enerode1995 - de 1995,Innovación
+79523926,Ingenieria de Petróleos,FUNDACIÓN UNIVERSIDAD DE AMÉRICA,Enerode1988 - de 1992,Ingenieria
+12105821,Msc En Ingeniería de Producción y Diseño de Máquin,Universidad de La Amistad,Enerode1973 - de 1974,Msc
+12105821,Ingeniería Mecánica,Universidad de La Amistad,Enerode1969 - de 1973,Ingeniería
+79647908,Doctorado en Mecánica Computacional,UNIVERSIDAD DE ZARAGOZA,Octubrede2004 - Juliode 2007,Doctorado
+79647908,"Doctorado en Diseño, Construccion y Fabricacion",Universidad De Oviedo,Enerode2001 - de 2004,Doctorado
+79647908,Magíster En Ingeniería Mecánica,UNIVERSIDAD DE LOS ANDES,Enerode2000 - Juniode 2003,Magíster
+79647908,Especializacion En Matematicas Avanzadas,UNIVERSIDAD NACIONAL DE COLOMBIA SEDE BOGOTA,Enerode2002 - de,Especializacion
+79647908,Departamento de Ingeniería Mecánica y Mecatrónica,UNIVERSIDAD NACIONAL DE COLOMBIA SEDE BOGOTA,Enerode1993 - de 1999,Departamento
+91489688,Ingeniería-Sistemas Energéticos,UNIVERSIDAD NACIONAL DE COLOMBIA SEDE MEDELLÍN,Enerode2007 - de 2011,Ingeniería-Sistemas
+91489688,Magister en Ingeniería Mecánica,UNIVERSIDAD DE LOS ANDES,Enerode2000 - de 2002,Magister
+91489688,Ingeniería Mecánica,UNIVERSIDAD INDUSTRIAL DE SANTANDER,Enerode1994 - de 2000,Ingeniería
+91489688,,Instituto Caldas,Enerode1987 - de 1992,
+91489688,,Instituto Caldas,Enerode1982 - de 1986,
+79858766,,"Facultad de Ingeniería, Instituto de Investigaciones en Materiales, UNAM",Enerode2002 - de 2005,
+79858766,,UNIVERSIDAD NACIONAL DE COLOMBIA,Enerode1999 - de 2002,
+79858766,Ingeniería Metalúrgica,Univerisidad Libre de Colombia,Enerode1993 - de 1998,Ingeniería
+79858766,,- nivel medio SERVICIO NACIONAL DE APRENDIZAJE SENA,Enerode1997 - de 1998,
+79858766,,- nivel medio SERVICIO NACIONAL DE APRENDIZAJE SENA,Enerode1996 - de 1997,
+79858766,Tècnico en sistemas,- nivel medio SISTEMAS Y TRABAJO,Enerode1992 - de 1992,Tècnico
+52176853,Doctorado en Ingeniería,Universidad De Kassel,Enerode1999 - de 2005,Doctorado
+52176853,Ingenieria Mecanica,UNIVERSIDAD NACIONAL DE COLOMBIA SEDE BOGOTA,Enerode1991 - Juliode 1996,Ingenieria
+79357694,Doctorado En Ingenieria,Universidad De Kassel,Enerode2002 - de 2006,Doctorado
+79357694,Maestria En Automatización Industrial,UNIVERSIDAD NACIONAL DE COLOMBIA SEDE BOGOTA,Enerode1996 - de 2000,Maestria
+79357694,Especialización En Informática Para La Docencia,UNIVERSIDAD CENTRAL,Enerode1997 - de 1999,Especialización
+79357694,Especialización En Comercio Internacional,Universidad Jorge Tadeo Lozano,Juniode1992 - de 1993,Especialización
+79357694,Ingenieria Mecánica,UNIVERSIDAD NACIONAL DE COLOMBIA SEDE BOGOTA,Enerode1984 - de 1990,Ingenieria
+79357694,Diplomado en Gestión Energética,UNIVERSIDAD NACIONAL DE COLOMBIA,Mayode2011 - Noviembrede 2011,Diplomado

@@ -4,7 +4,6 @@ const path = require('path')
 const filePath = path.join(__dirname, '/assets/input.txt');
 const ObjectsToCsv = require('objects-to-csv');
 const puppeteer = require('puppeteer');
-
 const Teacher = require('./Teacher/Teacher');
 
 fs.readFile(filePath, 'utf8', async (err, data) => {
@@ -16,21 +15,29 @@ fs.readFile(filePath, 'utf8', async (err, data) => {
     const teachers = await puppeteer.launch({headless: true}).then(async browser => {
 
         //For each teacher and to work in parallel a new page is made.
-        let promises = []
+        let linkPromises = [];
+        let page = await browser.newPage();
+
         for (let i = 0; i < dnis.length; i++) {
-            let pageInstance = await browser.newPage();
             //Get cvLac Link
             const minCienciasUrl = 'https://sba.minciencias.gov.co/tomcat/Buscador_HojasDeVida/busqueda?q=' + dnis[i];
-            await pageInstance.goto(minCienciasUrl);
-            const cvlacLink = await pageInstance.$eval('#link_res_0', element => element.getAttribute('href'));
-
-            promises.push(new Teacher({dni: dnis[i], cvlacLink: cvlacLink}).info(pageInstance))
+            await page.goto(minCienciasUrl);
+            linkPromises.push(await page.$eval('#link_res_0', element => element.getAttribute('href')));
         }
 
-        const teachersInfo = await Promise.all(promises).then(teachers => {
+        const teachersLinks = await Promise.all(linkPromises);
+
+        //For each teacher and to work in parallel a new page is made.
+        let teacherPromises = []
+        for (let i = 0; i < dnis.length; i++) {
+            let pageInstance = await browser.newPage();
+            teacherPromises.push(new Teacher({dni: dnis[i], cvlacLink: teachersLinks[i]}).info(pageInstance))
+        }
+
+        const teachersInfo = await Promise.all(teacherPromises).then(teachers => {
             //Here is where u get what u want. Example to get articles:
             //return teachers.map(teacher => teacher.articles);
-            return teachers.map(teacher => teacher.bookChapters);
+            return teachers.map(teacher => teacher.titles);
         }).catch(error => console.log(error));
 
         await browser.close();
@@ -51,16 +58,15 @@ fs.readFile(filePath, 'utf8', async (err, data) => {
         if (err) {
             // console.error(err)
         }
-    })
-    teachers.forEach(teacher => {
-        new ObjectsToCsv(teacher).toDisk('./dist/teachers.csv', {append: true});
     });
+
+    for (let i = 0; i < teachers.length; i++) {
+        await new ObjectsToCsv(teachers[i]).toDisk('./dist/teachers.csv', {append: true});
+    }
 
     console.log('Cvs file was created successfully :)');
 
-
 });
-
 
 
 

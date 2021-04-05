@@ -26,7 +26,7 @@ class Title {
      * @returns {String} Title's name
      */
     get name() {
-        return this._queryText.split('\n')[1]
+        return this._queryText.split('\n')[1];
     }
 
     /**
